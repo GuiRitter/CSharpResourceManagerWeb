@@ -11,3 +11,5 @@ export const NO_OP = 'NO_OP';
 export const SET_LIST = 'SET_LIST';
 
 export const SET_PATH = 'SET_PATH';
+
+export const SET_ROOT = 'SET_ROOT';

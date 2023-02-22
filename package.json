@@ -1,6 +1,6 @@
 {
   "name": "c_sharp_resource_manager",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "private": true,
   "homepage": "c_sharp_resource_manager/",
   "dependencies": {
@@ -18,7 +18,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set BROWSER=none && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

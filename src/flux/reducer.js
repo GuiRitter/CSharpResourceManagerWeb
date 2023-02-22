@@ -1,5 +1,7 @@
 import * as type from './type';
 
+import { PARENT_FOLDER } from '../constant/system';
+
 import { getLog } from '../util/log';
 
 const log = getLog('flux.reducer.');
@@ -7,9 +9,10 @@ const log = getLog('flux.reducer.');
 const initialState =
 {
 	list: [],
-	path: null,
-	root: null,
+	path: []
 };
+
+const byNotParent = file => file.name !== PARENT_FOLDER;
 
 const reducer = (currentState = initialState, action) => {
 	log('reducer', { currentState, action });
@@ -20,11 +23,10 @@ const reducer = (currentState = initialState, action) => {
 
 			let list = action.list;
 
-			if (currentState.path && currentState.root && (currentState.path.localeCompare(currentState.root)) !== 0) {
+			if (currentState.path && (currentState.path.length > 1)) {
 				list = [{
 					isDirectory: true,
-					name: "..",
-					path: null
+					name: PARENT_FOLDER,
 				}].concat(list);
 			}
 
@@ -34,9 +36,26 @@ const reducer = (currentState = initialState, action) => {
 			};
 
 		case type.SET_PATH:
+
+			if (action.fileName === PARENT_FOLDER) {
+				return {
+					...currentState,
+					list: [],
+					path: (currentState.path.length > 1) ? currentState.path.slice(0, -1) : currentState.path
+				};
+			}
+
 			return {
 				...currentState,
-				path: action.path,
+				list: [],
+				path: currentState.path.concat(action.fileName),
+			};
+
+		case type.SET_ROOT:
+			return {
+				...currentState,
+				list: [],
+				path: [action.root]
 			};
 
 		default: return currentState;

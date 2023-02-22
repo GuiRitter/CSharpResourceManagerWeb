@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getLog } from '../util/log';
 
-import { getList, getRoot } from '../flux/action/index';
+import { getList, getRoot, setPath } from '../flux/action/index';
 
 import './App.css';
 
@@ -15,13 +15,14 @@ function componentDidMount(props, dispatch) {
 	dispatch(getRoot());
 }
 
-function componentDidUpdate(props, prevProps, dispatch, pathField, path, list) {
-	console.log('did update', { props, prevProps });
+function componentDidUpdate(props, prevProps, dispatch, pathField, pathList, list) {
+	console.log('did update', { props, prevProps, pathList, list });
+	const path = pathList.join('/');
 	if (pathField && (pathField.value !== path)) {
 		pathField.value = path;
 	}
-	if (path && list && list.length < 1) {
-		dispatch(getList(path));
+	if (pathList && list && (pathList.length > 0) && (list.length < 1)) {
+		dispatch(getList(pathList));
 	}
 }
 
@@ -41,14 +42,14 @@ function App(props) {
 
 	const dispatch = useDispatch();
 
-	const list = useSelector(state => ((state || {}).reducer || {}).list || '') || '';
-	const path = useSelector(state => ((state || {}).reducer || {}).path || '') || '';
+	const list = useSelector(state => ((state || {}).reducer || {}).list || []) || [];
+	const pathList = useSelector(state => ((state || {}).reducer || {}).path || []) || [];
 
 	const [pathField, setPathField] = useState(null);
 
 	useEffect(() => {
 		if (didMountRef.current) {
-			componentDidUpdate(props, prevProps, dispatch, pathField, path, list);
+			componentDidUpdate(props, prevProps, dispatch, pathField, pathList, list);
 		} else {
 			didMountRef.current = true;
 			componentDidMount(props, dispatch);
@@ -61,8 +62,8 @@ function App(props) {
 		ref={ref => { if (ref) { setPathField(ref); } }}
 	/><div
 		className='left' id='left'
-	>{list.map(file => <p className='file_item'>{file.isDirectory 
-		? <input className='reload' /*onClick={() => diff()}*/ type='button' value='📁' />
+	>{list.map(file => <p className='file_item' key={file.name}>{file.isDirectory 
+		? <input className='reload' onClick={() => dispatch(setPath(file.name))} type='button' value='📁' />
 		: '📄'
 	} {file.name}</p>)}</div><textarea
 		className='right' id='right'
