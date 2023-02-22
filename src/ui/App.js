@@ -68,7 +68,7 @@ function App(props) {
 	} {file.name}</p>)}</div><textarea
 		className='right' id='right'
 	/><input
-		className='reload' /*onClick={() => diff()}*/ type='button' value='Reload'
+		className='reload' onClick={() => dispatch(getList(pathList))} type='button' value='Reload'
 	/><input
 		className='save' /*onClick={() => merge()}*/ type='button' value='Save'
 	/><p className='by'>by Guilherme Alan Ritter</p></>;
