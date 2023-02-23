@@ -5,6 +5,8 @@ import { getLog } from '../util/log';
 
 import { getList, getRoot, setPath } from '../flux/action/index';
 
+import Path from './Path';
+
 import './App.css';
 
 const log = getLog('App.');
@@ -15,12 +17,8 @@ function componentDidMount(props, dispatch) {
 	dispatch(getRoot());
 }
 
-function componentDidUpdate(props, prevProps, dispatch, pathField, pathList, list) {
+function componentDidUpdate(props, prevProps, dispatch, pathList, list) {
 	console.log('did update', { props, prevProps, pathList, list });
-	const path = pathList.join('/');
-	if (pathField && (pathField.value !== path)) {
-		pathField.value = path;
-	}
 	if (pathList && list && (pathList.length > 0) && (list.length < 1)) {
 		dispatch(getList(pathList));
 	}
@@ -45,22 +43,17 @@ function App(props) {
 	const list = useSelector(state => ((state || {}).reducer || {}).list || []) || [];
 	const pathList = useSelector(state => ((state || {}).reducer || {}).path || []) || [];
 
-	const [pathField, setPathField] = useState(null);
 
 	useEffect(() => {
 		if (didMountRef.current) {
-			componentDidUpdate(props, prevProps, dispatch, pathField, pathList, list);
+			componentDidUpdate(props, prevProps, dispatch, pathList, list);
 		} else {
 			didMountRef.current = true;
 			componentDidMount(props, dispatch);
 		}
 	});
 
-	return <><h1>C♯ Resource Manager</h1><input
-		className='path'
-		disabled
-		ref={ref => { if (ref) { setPathField(ref); } }}
-	/><div
+	return <><h1>C♯ Resource Manager</h1><Path/><div
 		className='left' id='left'
 	>{list.map(file => <p className='file_item' key={file.name}>{file.isDirectory 
 		? <input className='reload' onClick={() => dispatch(setPath(file.name))} type='button' value='📁' />

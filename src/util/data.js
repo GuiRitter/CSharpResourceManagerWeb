@@ -21,6 +21,8 @@ export const buildUUID = () => window.self.crypto.randomUUID();
 
 export const getIndex = (item, index) => index;
 
+export const intersperse = (array, element) => array.flatMap(item => [element, item]).slice(1);
+
 export const isArrayNullOrEmpty = array => (!array) || (Array.isArray(array) && array.length === 0);
 
 export const joinArrayIntoString = array => {
@@ -33,7 +35,7 @@ export const joinArrayIntoString = array => {
 	let tail = array.slice(-1);
 
 	let output = `${tail}`;
-	
+
 	if (array.length > 1) {
 		output = ` & ${output}`;
 	}

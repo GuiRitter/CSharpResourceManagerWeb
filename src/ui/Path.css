@@ -1,0 +1,15 @@
+.path_scroll {
+	display: flex;
+	overflow: auto;
+}
+
+.path_view_port {
+	display: flex;
+	flex-direction: row;
+	margin: 0 auto;
+}
+
+.path_separator {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
