@@ -8,7 +8,7 @@ const log = getLog('flux.reducer.');
 
 const initialState =
 {
-	list: [],
+	fileList: [],
 	path: []
 };
 
@@ -19,20 +19,20 @@ const reducer = (currentState = initialState, action) => {
 
 	switch (action.type) {
 
-		case type.SET_LIST:
+		case type.SET_FILE_LIST:
 
-			let list = action.list;
+			let fileList = action.fileList;
 
 			if (currentState.path && (currentState.path.length > 1)) {
-				list = [{
+				fileList = [{
 					isDirectory: true,
 					name: PARENT_FOLDER,
-				}].concat(list);
+				}].concat(fileList);
 			}
 
 			return {
 				...currentState,
-				list,
+				fileList,
 			};
 
 		case type.SET_PATH:
@@ -40,21 +40,21 @@ const reducer = (currentState = initialState, action) => {
 			if (action.fileName === PARENT_FOLDER) {
 				return {
 					...currentState,
-					list: [],
+					fileList: [],
 					path: (currentState.path.length > 1) ? currentState.path.slice(0, -1) : currentState.path
 				};
 			}
 
 			return {
 				...currentState,
-				list: [],
+				fileList: [],
 				path: currentState.path.concat(action.fileName),
 			};
 
 		case type.SET_ROOT:
 			return {
 				...currentState,
-				list: [],
+				fileList: [],
 				path: [action.root]
 			};
 

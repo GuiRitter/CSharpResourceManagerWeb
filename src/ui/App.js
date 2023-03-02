@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getLog } from '../util/log';
 
-import { getList, getRoot, setPath } from '../flux/action/index';
+import { getFileList, getRoot, setPath } from '../flux/action/index';
 
 import Path from './Path';
 
@@ -17,10 +17,10 @@ function componentDidMount(props, dispatch) {
 	dispatch(getRoot());
 }
 
-function componentDidUpdate(props, prevProps, dispatch, pathList, list) {
-	console.log('did update', { props, prevProps, pathList, list });
-	if (pathList && list && (pathList.length > 0) && (list.length < 1)) {
-		dispatch(getList(pathList));
+function componentDidUpdate(props, prevProps, dispatch, pathList, fileList) {
+	console.log('did update', { props, prevProps, pathList, fileList });
+	if (pathList && fileList && (pathList.length > 0) && (fileList.length < 1)) {
+		dispatch(getFileList(pathList));
 	}
 }
 
@@ -40,13 +40,13 @@ function App(props) {
 
 	const dispatch = useDispatch();
 
-	const list = useSelector(state => ((state || {}).reducer || {}).list || []) || [];
+	const fileList = useSelector(state => ((state || {}).reducer || {}).fileList || []) || [];
 	const pathList = useSelector(state => ((state || {}).reducer || {}).path || []) || [];
 
 
 	useEffect(() => {
 		if (didMountRef.current) {
-			componentDidUpdate(props, prevProps, dispatch, pathList, list);
+			componentDidUpdate(props, prevProps, dispatch, pathList, fileList);
 		} else {
 			didMountRef.current = true;
 			componentDidMount(props, dispatch);
@@ -55,13 +55,13 @@ function App(props) {
 
 	return <><h1>C♯ Resource Manager</h1><Path/><div
 		className='left' id='left'
-	>{list.map(file => <p className='file_item' key={file.name}>{file.isDirectory 
+	>{fileList.map(file => <p className='file_item' key={file.name}>{file.isDirectory 
 		? <input className='reload' onClick={() => dispatch(setPath(file.name))} type='button' value='📁' />
 		: '📄'
 	} {file.name}</p>)}</div><textarea
 		className='right' id='right'
 	/><input
-		className='reload' onClick={() => dispatch(getList(pathList))} type='button' value='Reload'
+		className='reload' onClick={() => dispatch(getFileList(pathList))} type='button' value='Reload'
 	/><input
 		className='save' /*onClick={() => merge()}*/ type='button' value='Save'
 	/><p className='by'>by Guilherme Alan Ritter</p></>;

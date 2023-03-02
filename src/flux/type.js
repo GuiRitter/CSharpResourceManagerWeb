@@ -8,7 +8,7 @@ export const LOADING = 'LOADING';
 
 export const NO_OP = 'NO_OP';
 
-export const SET_LIST = 'SET_LIST';
+export const SET_FILE_LIST = 'SET_FILE_LIST';
 
 export const SET_PATH = 'SET_PATH';
 

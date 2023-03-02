@@ -15,14 +15,14 @@ const log = getLog('flux.action.index.');
 // 	type: type.NO_OP
 // });
 
-export const getList = pathList => dispatch => {
-	log('getList', { pathList });
+export const getFileList = pathList => dispatch => {
+	log('getFileList', { pathList });
 	dispatch(axios.get(
 		getUrlWithSearchParams(`${API_URL}/list`, { pathList: JSON.stringify(pathList) }),
 		null,
 		response => dispatch({
-			type: type.SET_LIST,
-			list: response.data
+			type: type.SET_FILE_LIST,
+			fileList: response.data
 		})
 	));
 };
