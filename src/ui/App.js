@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getLog } from '../util/log';
 
-import { getFileList, getRoot, setPath } from '../flux/action/index';
+import { getFileList, getRoot, readFile, setPath } from '../flux/action/index';
 
+import Entry from './Entry';
 import Path from './Path';
 
 import './App.css';
@@ -18,7 +19,7 @@ function componentDidMount(props, dispatch) {
 }
 
 function componentDidUpdate(props, prevProps, dispatch, pathList, fileList) {
-	console.log('did update', { props, prevProps, pathList, fileList });
+	log('componentDidUpdate', { props, prevProps, pathList, fileList });
 	if (pathList && fileList && (pathList.length > 0) && (fileList.length < 1)) {
 		dispatch(getFileList(pathList));
 	}
@@ -40,6 +41,7 @@ function App(props) {
 
 	const dispatch = useDispatch();
 
+	const entryList = useSelector(state => ((state || {}).reducer || {}).entryList || []) || [];
 	const fileList = useSelector(state => ((state || {}).reducer || {}).fileList || []) || [];
 	const pathList = useSelector(state => ((state || {}).reducer || {}).path || []) || [];
 
@@ -57,10 +59,10 @@ function App(props) {
 		className='left' id='left'
 	>{fileList.map(file => <p className='file_item' key={file.name}>{file.isDirectory 
 		? <input className='reload' onClick={() => dispatch(setPath(file.name))} type='button' value='📁' />
-		: '📄'
-	} {file.name}</p>)}</div><textarea
+		: <input className='reload' onClick={() => dispatch(readFile(file.name))} type='button' value='📄' />
+	} {file.name}</p>)}</div><div
 		className='right' id='right'
-	/><input
+	>{entryList.map(entry => <Entry key={entry.name} entry={entry}/>)}</div><input
 		className='reload' onClick={() => dispatch(getFileList(pathList))} type='button' value='Reload'
 	/><input
 		className='save' /*onClick={() => merge()}*/ type='button' value='Save'

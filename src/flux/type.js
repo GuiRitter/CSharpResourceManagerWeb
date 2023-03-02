@@ -8,6 +8,8 @@ export const LOADING = 'LOADING';
 
 export const NO_OP = 'NO_OP';
 
+export const SET_ENTRY_LIST = 'SET_ENTRY_LIST';
+
 export const SET_FILE_LIST = 'SET_FILE_LIST';
 
 export const SET_PATH = 'SET_PATH';

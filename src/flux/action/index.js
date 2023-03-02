@@ -39,6 +39,19 @@ export const getRoot = () => dispatch => {
 	));
 };
 
+export const readFile = fileName => (dispatch, getState) => {
+	const pathList = (((getState || (() => { }))() || {}).reducer || {}).path || [];
+	log('readFile', { fileName, pathList });
+	dispatch(axios.get(
+		getUrlWithSearchParams(`${API_URL}/read`, { fileName: JSON.stringify(fileName), pathList: JSON.stringify(pathList) }),
+		null,
+		response => dispatch({
+			type: type.SET_ENTRY_LIST,
+			entryList: response.data
+		})
+	));
+};
+
 export const setPath = fileName => dispatch => {
 	log('setPath', { fileName });
 	dispatch({

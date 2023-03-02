@@ -84,6 +84,8 @@ const request = (axiosAndController, thenFunction, catchFunction, finallyFunctio
 				alert(reason.response.data.error);
 			} else if (reason && reason.response && reason.response.data && reason.response.data.error) {
 				alert(reason.response.data.error);
+			} else if (reason && reason.response && reason.response.data) {
+				alert(reason.response.data);
 			} else if (reason && (reason.code === CANCELED_ERROR)) {
 				// do nothing
 			} else if (reason) {

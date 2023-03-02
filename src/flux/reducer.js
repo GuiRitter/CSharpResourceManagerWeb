@@ -8,16 +8,21 @@ const log = getLog('flux.reducer.');
 
 const initialState =
 {
+	entryList: [],
 	fileList: [],
 	path: []
 };
-
-const byNotParent = file => file.name !== PARENT_FOLDER;
 
 const reducer = (currentState = initialState, action) => {
 	log('reducer', { currentState, action });
 
 	switch (action.type) {
+
+		case type.SET_ENTRY_LIST:
+			return {
+				...currentState,
+				entryList: action.entryList
+			};
 
 		case type.SET_FILE_LIST:
 
@@ -32,6 +37,7 @@ const reducer = (currentState = initialState, action) => {
 
 			return {
 				...currentState,
+				entryList: [],
 				fileList,
 			};
 
@@ -40,6 +46,7 @@ const reducer = (currentState = initialState, action) => {
 			if (action.fileName === PARENT_FOLDER) {
 				return {
 					...currentState,
+					entryList: [],
 					fileList: [],
 					path: (currentState.path.length > 1) ? currentState.path.slice(0, -1) : currentState.path
 				};
@@ -47,6 +54,7 @@ const reducer = (currentState = initialState, action) => {
 
 			return {
 				...currentState,
+				entryList: [],
 				fileList: [],
 				path: currentState.path.concat(action.fileName),
 			};
@@ -54,6 +62,7 @@ const reducer = (currentState = initialState, action) => {
 		case type.SET_ROOT:
 			return {
 				...currentState,
+				entryList: [],
 				fileList: [],
 				path: [action.root]
 			};
