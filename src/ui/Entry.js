@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { buildCell, buildRow, buildTable } from '../util/html';
 
-// import './Entry.css';
+import './Entry.css';
 
 // function componentDidMount(props, dispatch) {
 // }
@@ -11,8 +11,8 @@ import { buildCell, buildRow, buildTable } from '../util/html';
 // function componentDidUpdate(props, prevProps, dispatch) {
 // }
 
-const pt_BR_flag = <img height="16" width="16" src="https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg" />;
-const en_flag = <img height="16" width="16" src="https://upload.wikimedia.org/wikipedia/commons/0/0b/English_language.svg" />;
+const pt_BR_flag = <img height='16' width='16' src='https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg' />;
+const en_flag = <img height='16' width='16' src='https://upload.wikimedia.org/wikipedia/commons/0/0b/English_language.svg' />;
 
 function usePrevious(value) {
 	const ref = useRef();
@@ -37,25 +37,49 @@ function Entry(props) {
 		}
 	});
 
-	return buildTable(
-		{ key: `entry_${props.entry.name}` },
+	return <div
+		className='entry'
+	><input
+			className='name'
+			onClick={() => alert('TO DO')} type='button' value={props.entry.name}
+		/><input
+			className='delete'
+			onClick={() => alert('TO DO')} type='button' value='×'
+		/><span
+			className='value text_align_center'
+		>V</span>
+		<img
+			className='value_neutral'
+			height='16'
+			width='16'
+			src='https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg'
+		/><input
+			className='value_neutral'
+		/><img
+			className='value_english'
+			height='16'
+			width='16'
+			src='https://upload.wikimedia.org/wikipedia/commons/0/0b/English_language.svg'
+		/><input
+			className='value_english'
+		/><span
+			className='comment   text_align_center'
+		>C</span><img
+			className='comment_neutral'
+			height='16'
+			width='16'
+			src='https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg'
+		/><input
+			className='comment_neutral'
+		/><img
+			className='comment_english'
+			height='16'
+			width='16'
+			src='https://upload.wikimedia.org/wikipedia/commons/0/0b/English_language.svg'
+		/><input
+			className='comment_english'
+		/></div>;
 
-		buildRow(
-			'name',
-			buildCell('name', <input onClick={() => alert('TO DO')} type='button' value={props.entry.name} />, { colspan: 2 }),
-			buildCell('delete', <input onClick={() => alert('TO DO')} type='button' value='×' />)
-		),
-
-		buildRow('value', buildCell('value', 'Value', { className: 'text_align_center', colspan: 3 })),
-
-		buildRow('value_neutral', buildCell('flag', pt_BR_flag), buildCell('input', <input />, { colspan: 2 })),
-		buildRow('value_english', buildCell('flag', en_flag), buildCell('input', <input />, { colspan: 2 })),
-
-		buildRow('comment', buildCell('comment', 'comment', { className: 'text_align_center', colspan: 3 })),
-
-		buildRow('comment_neutral', buildCell('flag', pt_BR_flag), buildCell('input', <input />, { colspan: 2 })),
-		buildRow('comment_english', buildCell('flag', en_flag), buildCell('input', <input />, { colspan: 2 }))
-	);
 }
 
 export default Entry;

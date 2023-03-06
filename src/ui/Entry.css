@@ -1,0 +1,69 @@
+.entry {
+	display: grid;
+	/* height: 100%;
+	width: 100%; */
+	grid-template-columns: auto auto 1fr auto;
+	margin: /*top*/ 2em /*right*/ 1em /*bottom*/ 1em /*left*/ 1em;
+}
+
+.entry .name {
+	grid-area: /*row-start*/ 1 / /*column-start*/ 1 / /*row-end*/ 2 / /*column-end*/ 4;
+	margin: /*top*/ 0.25em /*right*/ 0.25em /*bottom*/ 0.5em /*left*/ 0em;
+}
+
+.entry .delete {
+	grid-area: /*row-start*/ 1 / /*column-start*/ 4 / /*row-end*/ 2 / /*column-end*/ 5;
+	margin: /*top*/ 0.25em /*right*/ 0em /*bottom*/ 0.5em /*left*/ 0.25em;
+}
+
+.entry .value {
+	grid-area: /*row-start*/ 2 / /*column-start*/ 1 / /*row-end*/ 4 / /*column-end*/ 2;
+	margin: /*top*/ 0em /*right*/ 0.25em /*bottom*/ 0em /*left*/ 0em;
+	align-self: center;
+}
+
+.entry img.value_neutral {
+	grid-area: /*row-start*/ 2 / /*column-start*/ 2 / /*row-end*/ 3 / /*column-end*/ 3;
+	margin: /*top*/ 0.5em /*right*/ 0.25em /*bottom*/ 0.25em /*left*/ 0.25em;
+}
+
+.entry input.value_neutral {
+	grid-area: /*row-start*/ 2 / /*column-start*/ 3 / /*row-end*/ 3 / /*column-end*/ 5;
+	margin: /*top*/ 0.5em /*right*/ 0em /*bottom*/ 0.25em /*left*/ 0.25em;
+}
+
+.entry img.value_english {
+	grid-area: /*row-start*/ 3 / /*column-start*/ 2 / /*row-end*/ 4 / /*column-end*/ 3;
+	margin: /*top*/ 0.25em /*right*/ 0.25em /*bottom*/ 0.5em /*left*/ 0.25em;
+}
+
+.entry input.value_english {
+	grid-area: /*row-start*/ 3 / /*column-start*/ 3 / /*row-end*/ 4 / /*column-end*/ 5;
+	margin: /*top*/ 0.25em /*right*/ 0em /*bottom*/ 0.5em /*left*/ 0.25em;
+}
+
+.entry .comment {
+	grid-area: /*row-start*/ 4 / /*column-start*/ 1 / /*row-end*/ 6 / /*column-end*/ 2;
+	margin: /*top*/ 0em /*right*/ 0.25em /*bottom*/ 0em /*left*/ 0em;
+	align-self: center;
+}
+
+.entry img.comment_neutral {
+	grid-area: /*row-start*/ 4 / /*column-start*/ 2 / /*row-end*/ 5 / /*column-end*/ 3;
+	margin: /*top*/ 0.5em /*right*/ 0.25em /*bottom*/ 0.25em /*left*/ 0.25em;
+}
+
+.entry input.comment_neutral {
+	grid-area: /*row-start*/ 4 / /*column-start*/ 3 / /*row-end*/ 5 / /*column-end*/ 5;
+	margin: /*top*/ 0.5em /*right*/ 0em /*bottom*/ 0.25em /*left*/ 0.25em;
+}
+
+.entry img.comment_english {
+	grid-area: /*row-start*/ 5 / /*column-start*/ 2 / /*row-end*/ 6 / /*column-end*/ 3;
+	margin: /*top*/ 0.25em /*right*/ 0.25em /*bottom*/ 0.5em /*left*/ 0.25em;
+}
+
+.entry input.comment_english {
+	grid-area: /*row-start*/ 5 / /*column-start*/ 3 / /*row-end*/ 6 / /*column-end*/ 5;
+	margin: /*top*/ 0.25em /*right*/ 0em /*bottom*/ 0.5em /*left*/ 0.25em;
+}

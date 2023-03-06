@@ -1,6 +1,6 @@
 {
   "name": "c_sharp_resource_manager",
-  "version": "0.0.6",
+  "version": "0.6.1",
   "private": true,
   "homepage": "c_sharp_resource_manager/",
   "dependencies": {
