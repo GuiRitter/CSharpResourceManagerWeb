@@ -16,6 +16,18 @@ const doesNothing = ({
 	type: type.NO_OP
 });
 
+export const addEntry = () => dispatch => {
+	log('addEntry');
+	let name = (window.prompt('New entry name:') || '').trim();
+	if (!name) {
+		return;
+	}
+	dispatch({
+		type: type.ADD_ENTRY,
+		name
+	});
+};
+
 export const getFileList = pathList => dispatch => {
 	log('getFileList', { pathList });
 	dispatch(axios.get(

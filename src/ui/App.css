@@ -72,3 +72,11 @@ h1 {
 .text_align_center {
 	text-align: center;
 }
+
+.icon {
+	margin: /*top*/ 0em /*right*/ 0em /*bottom*/ 0em /*left*/ 1em;
+}
+
+.add {
+	grid-area: /*row-start*/ 1 / /*column-start*/ 1 / /*row-end*/ 2 / /*column-end*/ 5;
+}

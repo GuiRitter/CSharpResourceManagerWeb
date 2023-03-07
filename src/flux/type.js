@@ -1,3 +1,5 @@
+export const ADD_ENTRY = 'ADD_ENTRY';
+
 export const AUTHENTICATION = 'AUTHENTICATION';
 
 export const ABORT_REQUEST = 'ABORT_REQUEST';

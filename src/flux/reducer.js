@@ -3,6 +3,7 @@ import * as type from './type';
 import { PARENT_FOLDER } from '../constant/system';
 
 import { getLog } from '../util/log';
+import { build as buildEntry, byName, getEntryByName } from '../util/resource';
 
 const log = getLog('flux.reducer.');
 
@@ -17,6 +18,17 @@ const reducer = (currentState = initialState, action) => {
 	log('reducer', { currentState, action });
 
 	switch (action.type) {
+
+		case type.ADD_ENTRY:
+
+			if (currentState.entryList.find(getEntryByName(action.name))) {
+				return currentState;
+			}
+
+			return {
+				...currentState,
+				entryList: currentState.entryList.concat(buildEntry(action.name)).sort(byName)
+			};
 
 		case type.SET_ACTION_DATA:
 

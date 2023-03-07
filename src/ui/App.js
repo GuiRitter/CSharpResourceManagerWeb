@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getLog } from '../util/log';
 
-import { getFileList, getRoot, readFile, setPath } from '../flux/action/index';
+import { addEntry, getFileList, getRoot, readFile, setPath } from '../flux/action/index';
 
 import Entry from './Entry';
 import Path from './Path';
@@ -56,18 +56,24 @@ function App(props) {
 		}
 	});
 
-	return <><h1>C♯ Resource Manager</h1><Path/><div
+	return <><h1>C♯ Resource Manager</h1><Path /><div
 		className='left' id='left'
-	>{fileList.map(file => <p className='file_item' key={file.name}>{file.isDirectory 
-		? <input className='reload' onClick={() => dispatch(setPath(file.name))} type='button' value='📁' />
-		: <input className='reload' onClick={() => dispatch(readFile(file.name))} type='button' value='📄' />
+	>{fileList.map(file => <p className='file_item' key={file.name}>{file.isDirectory
+		? <input className='icon' onClick={() => dispatch(setPath(file.name))} type='button' value='📁' />
+		: <input className='icon' onClick={() => dispatch(readFile(file.name))} type='button' value='📄' />
 	} {file.name}</p>)}</div><div
 		className='right' id='right'
-	>{entryList.map(entry => <Entry key={entry.name} entry={entry}/>)}</div><input
-		className='reload' onClick={() => dispatch(getFileList(pathList))} type='button' value='Reload'
-	/><input
-		className='save' /*onClick={() => merge()}*/ type='button' value='Save'
-	/><p className='by'>by Guilherme Alan Ritter</p></>;
+	>{(
+		entryList.length
+			? [<div className='entry' ><input className='add' onClick={() => dispatch(addEntry())} type='button' value='Add new entry' /></div>]
+			: []
+	).concat(
+		entryList.map(entry => <Entry key={entry.name} entry={entry} />)
+	)}</div><input
+			className='reload' onClick={() => dispatch(getFileList(pathList))} type='button' value='Reload'
+		/><input
+			className='save' /*onClick={() => merge()}*/ type='button' value='Save'
+		/><p className='by'>by Guilherme Alan Ritter</p></>;
 }
 
 export default App;
