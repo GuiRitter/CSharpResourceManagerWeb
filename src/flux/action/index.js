@@ -76,6 +76,25 @@ export const removeEntry = name => dispatch => {
 	});
 };
 
+export const renameEntry = oldName => (dispatch, getState) => {
+	log('renameEntry', { oldName });
+	const newName = window.prompt(`Enter a new name for ${oldName}:`).trim();
+	log('renameEntry', { newName });
+	if (!newName) {
+		return doesNothing;
+	}
+	const entry = ((getState().reducer || {}).entryList || []).find(getEntryByName(newName));
+	if (entry) {
+		alert(`Entry ${newName} already exists.`);
+		return doesNothing;
+	}
+	dispatch({
+		type: type.RENAME_ENTRY,
+		oldName,
+		newName
+	});
+};
+
 export const setEntryData = (entryName, language, dataName, dataValue) => (dispatch, getState) => {
 	const entry = ((getState().reducer || {}).entryList || []).find(getEntryByName(entryName)) || {};
 	if (dataValue === entry[language][dataName]) {

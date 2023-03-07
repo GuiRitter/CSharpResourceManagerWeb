@@ -12,6 +12,8 @@ export const NO_OP = 'NO_OP';
 
 export const REMOVE_ENTRY = 'REMOVE_ENTRY';
 
+export const RENAME_ENTRY = 'RENAME_ENTRY';
+
 export const SET_ACTION_DATA = 'SET_ACTION_DATA';
 
 export const SET_ENTRY_LIST = 'SET_ENTRY_LIST';

@@ -30,6 +30,27 @@ const reducer = (currentState = initialState, action) => {
 				entryList: currentState.entryList.concat(buildEntry(action.name)).sort(byName)
 			};
 
+		case type.RENAME_ENTRY:
+
+			let entry = currentState.entryList.find(getEntryByName(action.newName));
+
+			if (entry) {
+				return currentState;
+			}
+
+			entry = currentState.entryList.find(getEntryByName(action.oldName));
+
+			if (!entry) {
+				return currentState;
+			}
+
+			entry = { ...entry, name: action.newName };
+
+			return {
+				...currentState,
+				entryList: currentState.entryList.filter(byNotThisName(action.oldName)).concat(entry).sort(byName)
+			};
+
 		case type.REMOVE_ENTRY:
 
 			return {
