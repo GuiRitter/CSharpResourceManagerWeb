@@ -6,4 +6,6 @@ export const buildLanguage = () => ({ value: null, comment: null });
 
 export const byName = (entryA, entryB) => entryA.name.localeCompare(entryB.name);
 
+export const byNotThisName = name => entry => entry && (entry.name !== name);
+
 export const getEntryByName = name => entry => entry && (entry.name === name);

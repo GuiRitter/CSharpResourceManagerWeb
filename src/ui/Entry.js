@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { LANGUAGE } from '../constant/resource';
 
-import { setEntryData } from '../flux/action/index';
+import { removeEntry, setEntryData } from '../flux/action/index';
 
 // import { getLog } from '../util/log';
 
@@ -74,7 +74,7 @@ function Entry(props) {
 			onClick={() => alert('TO DO')} type='button' value={props.entry.name}
 		/><input
 			className='delete'
-			onClick={() => alert('TO DO')} type='button' value='×'
+			onClick={() => dispatch(removeEntry(props.entry.name))} type='button' value='×'
 		/><span
 			className='value text_align_center'
 		>V</span>

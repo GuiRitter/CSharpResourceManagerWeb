@@ -65,7 +65,7 @@ function App(props) {
 		className='right' id='right'
 	>{(
 		entryList.length
-			? [<div className='entry' ><input className='add' onClick={() => dispatch(addEntry())} type='button' value='Add new entry' /></div>]
+			? [<div className='entry' key='' ><input className='add' onClick={() => dispatch(addEntry())} type='button' value='Add new entry' /></div>]
 			: []
 	).concat(
 		entryList.map(entry => <Entry key={entry.name} entry={entry} />)

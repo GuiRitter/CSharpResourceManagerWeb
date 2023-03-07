@@ -65,6 +65,17 @@ export const readFile = fileName => (dispatch, getState) => {
 	));
 };
 
+export const removeEntry = name => dispatch => {
+	log('removeEntry', { name });
+	if (!window.confirm(`Remove entry ${name}?`)) {
+		return doesNothing;
+	}
+	dispatch({
+		type: type.REMOVE_ENTRY,
+		name
+	});
+};
+
 export const setEntryData = (entryName, language, dataName, dataValue) => (dispatch, getState) => {
 	const entry = ((getState().reducer || {}).entryList || []).find(getEntryByName(entryName)) || {};
 	if (dataValue === entry[language][dataName]) {
