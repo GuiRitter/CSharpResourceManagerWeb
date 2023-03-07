@@ -18,6 +18,19 @@ const reducer = (currentState = initialState, action) => {
 
 	switch (action.type) {
 
+		case type.SET_ACTION_DATA:
+
+			return {
+				...currentState,
+				entryList: currentState.entryList.map(entry => {
+					if (entry.name === action.name) {
+						entry = JSON.parse(JSON.stringify(entry));
+						entry[action.language][action.dataName] = action.dataValue;
+					}
+					return entry;
+				})
+			};
+
 		case type.SET_ENTRY_LIST:
 			return {
 				...currentState,

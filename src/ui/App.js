@@ -45,6 +45,7 @@ function App(props) {
 	const fileList = useSelector(state => ((state || {}).reducer || {}).fileList || []) || [];
 	const pathList = useSelector(state => ((state || {}).reducer || {}).path || []) || [];
 
+	log('App', { props, prevProps, entryList, fileList, pathList });
 
 	useEffect(() => {
 		if (didMountRef.current) {

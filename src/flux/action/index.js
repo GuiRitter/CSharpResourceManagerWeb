@@ -7,13 +7,14 @@ import * as axios from './axios';
 import { getUrlWithSearchParams } from '../../util/http';
 
 import { getLog } from '../../util/log';
+import { getEntryByName } from '../../util/resource';
 
 const log = getLog('flux.action.index.');
 
-// const doesNothing = ({
-// 	isLoading: false,
-// 	type: type.NO_OP
-// });
+const doesNothing = ({
+	isLoading: false,
+	type: type.NO_OP
+});
 
 export const getFileList = pathList => dispatch => {
 	log('getFileList', { pathList });
@@ -50,6 +51,20 @@ export const readFile = fileName => (dispatch, getState) => {
 			entryList: response.data
 		})
 	));
+};
+
+export const setEntryData = (entryName, language, dataName, dataValue) => (dispatch, getState) => {
+	const entry = ((getState().reducer || {}).entryList || []).find(getEntryByName(entryName)) || {};
+	if (dataValue === entry[language][dataName]) {
+		return doesNothing;
+	}
+	dispatch({
+		type: type.SET_ACTION_DATA,
+		name: entryName,
+		language,
+		dataName,
+		dataValue
+	});
 };
 
 export const setPath = fileName => dispatch => {

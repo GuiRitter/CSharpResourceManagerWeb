@@ -1,26 +1,30 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { LANGUAGE } from '../constant/resource';
+
+import { setEntryData } from '../flux/action/index';
+
 // import { getLog } from '../util/log';
 
-import { buildCell, buildRow, buildTable } from '../util/html';
+import InputText from './InputText';
 
 import './Entry.css';
 
 // const log = getLog('Entry.');
 
 function componentDidMount(props/*, dispatch*/, valueNeutralField, valueEnglishField, commentNeutralField, commentEnglishField) {
-	if (valueNeutralField && (valueNeutralField.value !== (props.entry[''].value || ''))) {
-		valueNeutralField.value = props.entry[''].value || '';
+	if (valueNeutralField && (valueNeutralField.value !== (props.entry[LANGUAGE.NEUTRAL].value || ''))) {
+		valueNeutralField.value = props.entry[LANGUAGE.NEUTRAL].value || '';
 	}
-	if (valueEnglishField && (valueEnglishField.value !== (props.entry['en-US'].value || ''))) {
-		valueEnglishField.value = props.entry['en-US'].value || '';
+	if (valueEnglishField && (valueEnglishField.value !== (props.entry[LANGUAGE.ENGLISH].value || ''))) {
+		valueEnglishField.value = props.entry[LANGUAGE.ENGLISH].value || '';
 	}
-	if (commentNeutralField && (commentNeutralField.value !== (props.entry[''].comment || ''))) {
-		commentNeutralField.value = props.entry[''].comment || '';
+	if (commentNeutralField && (commentNeutralField.value !== (props.entry[LANGUAGE.NEUTRAL].comment || ''))) {
+		commentNeutralField.value = props.entry[LANGUAGE.NEUTRAL].comment || '';
 	}
-	if (commentEnglishField && (commentEnglishField.value !== (props.entry['en-US'].comment || ''))) {
-		commentEnglishField.value = props.entry['en-US'].comment || '';
+	if (commentEnglishField && (commentEnglishField.value !== (props.entry[LANGUAGE.ENGLISH].comment || ''))) {
+		commentEnglishField.value = props.entry[LANGUAGE.ENGLISH].comment || '';
 	}
 }
 
@@ -46,6 +50,8 @@ function Entry(props) {
 	const didMountRef = useRef(false);
 
 	const prevProps = usePrevious(props);
+
+	const dispatch = useDispatch();
 
 	const [valueNeutralField, setValueNeutralField] = useState(null);
 	const [valueEnglishField, setValueEnglishField] = useState(null);
@@ -77,17 +83,19 @@ function Entry(props) {
 			height='16'
 			width='16'
 			src='https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg'
-		/><input
+		/><InputText
 			className='value_neutral'
-			ref={ref => { if (ref) { setValueNeutralField(ref); } }}
+			onInput={() => dispatch(setEntryData(props.entry.name, LANGUAGE.NEUTRAL, 'value', valueNeutralField.value))}
+			setRef={ref => { if (ref) { setValueNeutralField(ref); } }}
 		/><img
 			className='value_english'
 			height='16'
 			width='16'
 			src='https://upload.wikimedia.org/wikipedia/commons/0/0b/English_language.svg'
-		/><input
+		/><InputText
 			className='value_english'
-			ref={ref => { if (ref) { setValueEnglishField(ref); } }}
+			onInput={() => dispatch(setEntryData(props.entry.name, LANGUAGE.ENGLISH, 'value', valueEnglishField.value))}
+			setRef={ref => { if (ref) { setValueEnglishField(ref); } }}
 		/><span
 			className='comment text_align_center'
 		>C</span><img
@@ -95,17 +103,19 @@ function Entry(props) {
 			height='16'
 			width='16'
 			src='https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg'
-		/><input
+		/><InputText
 			className='comment_neutral'
-			ref={ref => { if (ref) { setCommentNeutralField(ref); } }}
+			onInput={() => dispatch(setEntryData(props.entry.name, LANGUAGE.NEUTRAL, 'comment', commentNeutralField.value))}
+			setRef={ref => { if (ref) { setCommentNeutralField(ref); } }}
 		/><img
 			className='comment_english'
 			height='16'
 			width='16'
 			src='https://upload.wikimedia.org/wikipedia/commons/0/0b/English_language.svg'
-		/><input
+		/><InputText
 			className='comment_english'
-			ref={ref => { if (ref) { setCommentEnglishField(ref); } }}
+			onInput={() => dispatch(setEntryData(props.entry.name, LANGUAGE.ENGLISH, 'comment', commentEnglishField.value))}
+			setRef={ref => { if (ref) { setCommentEnglishField(ref); } }}
 		/></div>;
 }
 
