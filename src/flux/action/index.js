@@ -60,7 +60,9 @@ export const readFile = fileName => (dispatch, getState) => {
 		null,
 		response => dispatch({
 			type: type.SET_ENTRY_LIST,
-			entryList: response.data
+			entryList: response.data.mergedEntryList,
+			prefixList: response.data.prefixList,
+			fileName
 		})
 	));
 };
@@ -93,6 +95,20 @@ export const renameEntry = oldName => (dispatch, getState) => {
 		oldName,
 		newName
 	});
+};
+
+export const saveFile = () => (dispatch, getState) => {
+	log('saveFile');
+	dispatch(axios.post(
+		getUrlWithSearchParams(`${API_URL}/save`, { fileName: JSON.stringify(getState().reducer.fileName) }),
+		{
+			entryList: getState().reducer.entryList,
+			pathList: getState().reducer.path,
+			prefixList: getState().reducer.prefixList
+		},
+		null,
+		response => dispatch(getFileList(getState().reducer.path))
+	));
 };
 
 export const setEntryData = (entryName, language, dataName, dataValue) => (dispatch, getState) => {

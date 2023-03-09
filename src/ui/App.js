@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getLog } from '../util/log';
 
-import { addEntry, getFileList, getRoot, readFile, setPath } from '../flux/action/index';
+import { addEntry, getFileList, getRoot, readFile, saveFile, setPath } from '../flux/action/index';
 
 import Entry from './Entry';
 import Path from './Path';
@@ -72,7 +72,7 @@ function App(props) {
 	)}</div><input
 			className='reload' onClick={() => dispatch(getFileList(pathList))} type='button' value='Reload'
 		/><input
-			className='save' /*onClick={() => merge()}*/ type='button' value='Save'
+			className='save' onClick={() => dispatch(saveFile())} type='button' value='Save'
 		/><p className='by'>by Guilherme Alan Ritter</p></>;
 }
 

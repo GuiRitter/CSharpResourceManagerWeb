@@ -11,7 +11,9 @@ const initialState =
 {
 	entryList: [],
 	fileList: [],
-	path: []
+	fileName: null,
+	path: [],
+	prefixList: []
 };
 
 const reducer = (currentState = initialState, action) => {
@@ -74,7 +76,9 @@ const reducer = (currentState = initialState, action) => {
 		case type.SET_ENTRY_LIST:
 			return {
 				...currentState,
-				entryList: action.entryList
+				entryList: action.entryList,
+				prefixList: action.prefixList,
+				fileName: action.fileName
 			};
 
 		case type.SET_FILE_LIST:
@@ -92,6 +96,7 @@ const reducer = (currentState = initialState, action) => {
 				...currentState,
 				entryList: [],
 				fileList,
+				prefixList: []
 			};
 
 		case type.SET_PATH:
@@ -101,7 +106,9 @@ const reducer = (currentState = initialState, action) => {
 					...currentState,
 					entryList: [],
 					fileList: [],
-					path: (currentState.path.length > 1) ? currentState.path.slice(0, -1) : currentState.path
+					fileName: null,
+					path: (currentState.path.length > 1) ? currentState.path.slice(0, -1) : currentState.path,
+					prefixList: []
 				};
 			}
 
@@ -109,7 +116,9 @@ const reducer = (currentState = initialState, action) => {
 				...currentState,
 				entryList: [],
 				fileList: [],
+				fileName: null,
 				path: currentState.path.concat(action.fileName),
+				prefixList: []
 			};
 
 		case type.SET_ROOT:
@@ -117,7 +126,9 @@ const reducer = (currentState = initialState, action) => {
 				...currentState,
 				entryList: [],
 				fileList: [],
-				path: [action.root]
+				fileName: null,
+				path: [action.root],
+				prefixList: []
 			};
 
 		default: return currentState;
